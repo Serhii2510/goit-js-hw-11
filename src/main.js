@@ -37,6 +37,8 @@ formInput.addEventListener('submit', (e) => {
     getImages(searchRequest)
         .then(data => {
         if (!data.total) {
+            loadImg.classList.add('visually-hidden');
+
             return iziToast.error({
             position: 'topRight',
             backgroundColor: 'red',
@@ -59,7 +61,18 @@ formInput.addEventListener('submit', (e) => {
             
             loadImg.classList.add('visually-hidden');
         })
-        .catch(error => console.log(`Error: ${error}`));
+        .catch(error => {
+            return iziToast.error({
+            position: 'topRight',
+            backgroundColor: 'red',
+            theme: 'dark',
+            title: 'Error',
+            titleColor: 'white',
+            message: `${error}`,
+            messageColor: 'white',
+            maxWidth: 400,
+            });
+        });
     
     formInput.reset();
 })
